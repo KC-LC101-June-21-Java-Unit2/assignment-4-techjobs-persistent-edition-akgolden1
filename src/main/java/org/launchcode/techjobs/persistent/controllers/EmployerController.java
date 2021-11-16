@@ -15,8 +15,11 @@ import java.util.Optional;
 @RequestMapping("employers")
 public class EmployerController {
 
-    @Autowired
-private EmployerRepository employerRepository;
+    @Autowired//this tells Spring to manage the repository and auto populate the employerReository field so we don't set anything here.
+    private EmployerRepository employerRepository;
+
+    //we may want to use methods because the EmployerRepository extends the CRUD repository. See Chris' video
+    //maybe findAll(), save()
 
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
@@ -24,27 +27,41 @@ private EmployerRepository employerRepository;
         return "employers/add";
     }
 
-    @PostMapping("add")
+    @PostMapping("add")//do I need an @requestParam here?
     public String processAddEmployerForm(@ModelAttribute @Valid Employer newEmployer,
                                     Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             return "employers/add";
         }
+        else {
+            model.addAttribute("employer", employerRepository.findAll());
+        }
 
         return "redirect:";
     }
 
-    @GetMapping("view/{employerId}")
+    @GetMapping("view/{employerId}")//path parameter employerId. This piece of data customizes the response
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
         Optional optEmployer = null;
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
+
             return "employers/view";
         } else {
             return "redirect:../";
         }
+    }
+//Controllers section, #2
+    //should this actually live at employers/index
+    @GetMapping ("/employers/index")
+    public String index (Model model){
+        model.addAttribute(new Employer());//do I need some kind of employer value in the Employer, like id
+        model.addAttribute("employer.name", "employer.id");
+
+        //responds with a list of all employers in the database
+        return "index";//or should this be return employers/index?
     }
 }
