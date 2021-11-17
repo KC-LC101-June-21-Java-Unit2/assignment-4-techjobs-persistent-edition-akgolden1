@@ -44,7 +44,7 @@ public class EmployerController {
     @GetMapping("view/{employerId}")//path parameter employerId. This piece of data customizes the response
     public String displayViewEmployer(Model model, @PathVariable int employerId) {
 
-        Optional optEmployer = null;
+        Optional optEmployer = employerRepository.findById(employerId);
         if (optEmployer.isPresent()) {
             Employer employer = (Employer) optEmployer.get();
             model.addAttribute("employer", employer);
@@ -56,7 +56,7 @@ public class EmployerController {
     }
 //Controllers section, #2
     //should this actually live at employers/index
-    @GetMapping ("/employers/index")
+    @GetMapping ("")
     public String index (Model model){
         model.addAttribute(new Employer());//do I need some kind of employer value in the Employer, like id
         model.addAttribute("employer.name", "employer.id");
