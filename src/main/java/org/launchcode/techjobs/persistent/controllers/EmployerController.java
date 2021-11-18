@@ -21,6 +21,19 @@ public class EmployerController {
     //we may want to use methods because the EmployerRepository extends the CRUD repository. See Chris' video
     //maybe findAll(), save()
 
+
+
+    //Controllers section, #2
+    //should this actually live at employers/index
+    @GetMapping ("")
+    public String index (Model model){
+        model.addAttribute("employers", employerRepository.findAll());
+
+
+        //responds with a list of all employers in the database
+        return "employers/index";//or should this be return employers/index?
+    }
+
     @GetMapping("add")
     public String displayAddEmployerForm(Model model) {
         model.addAttribute(new Employer());
@@ -35,7 +48,9 @@ public class EmployerController {
             return "employers/add";
         }
         else {
-            model.addAttribute("employer", employerRepository.save(new Employer()));
+
+            model.addAttribute("employers", employerRepository.save(newEmployer));
+             //employerRepository.save(new Employer());
         }
 
         return "redirect:";
@@ -54,14 +69,5 @@ public class EmployerController {
             return "redirect:../";
         }
     }
-//Controllers section, #2
-    //should this actually live at employers/index
-    @GetMapping ("")
-    public String index (Model model){
-        model.addAttribute(new Employer());//do I need some kind of employer value in the Employer, like id
-        model.addAttribute("employer.name", "employer.id");
 
-        //responds with a list of all employers in the database
-        return "index";//or should this be return employers/index?
-    }
 }
