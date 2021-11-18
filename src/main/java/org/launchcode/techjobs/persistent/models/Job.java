@@ -3,7 +3,8 @@ package org.launchcode.techjobs.persistent.models;
 import javax.persistence.*;
 
 @Entity
-public class Job{
+//Originally I didn't have Job extending AbstractEntity
+public class Job extends AbstractEntity{
 
     @Id
     @GeneratedValue

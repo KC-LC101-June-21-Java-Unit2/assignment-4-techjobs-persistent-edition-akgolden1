@@ -20,7 +20,7 @@ import java.util.Optional;
 public class SkillController {
 
     @Autowired
-//this tells Spring to manage the repository and auto populate the employerReository field so we don't set anything here.
+//this tells Spring to manage the repository and auto populate the employerRepository field so we don't set anything here.
     private SkillRepository skillRepository;
 
 

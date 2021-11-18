@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 public class Employer extends AbstractEntity {
 
     @NotBlank
-    @Size(min=10, max=100)
+    @Size(min = 10, max = 100)
     private String location;
 
     public String getLocation() {
