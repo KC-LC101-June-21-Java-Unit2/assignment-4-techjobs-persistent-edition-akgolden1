@@ -3,7 +3,8 @@
 
 -- Part 2: Test it with SQL
 
-  SELECT name from EMPLOYER where location = "St.Louis City";
+  SELECT NAME FROM EMPLOYER WHERE LOCATION = "St. Louis City";
 -- Part 3: Test it with SQL
 
+DROP TABLE JOB;
 -- Part 4: Test it with SQL

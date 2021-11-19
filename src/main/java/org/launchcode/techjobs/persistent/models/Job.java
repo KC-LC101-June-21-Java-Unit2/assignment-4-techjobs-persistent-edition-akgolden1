@@ -6,13 +6,13 @@ import javax.persistence.*;
 //Originally I didn't have Job extending AbstractEntity
 public class Job extends AbstractEntity{
 
-    @Id
-    @GeneratedValue
-    private int id;
+//    @Id
+//    @GeneratedValue
+    //private int id;//removed per update Job Mode but what about the annotations?
 
-    private String name;
+    //private String name; removed per test 3
 
-@ManyToOne
+    @ManyToOne
     private Employer employer;//per step 2
 
     private String skills;
@@ -27,14 +27,14 @@ public class Job extends AbstractEntity{
     }
 
     // Getters and setters.
+//removing name variable per update Job model instructions
+//    public String getName() {
+//        return name;
+//    }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
     public Employer getEmployer() {
         return employer;

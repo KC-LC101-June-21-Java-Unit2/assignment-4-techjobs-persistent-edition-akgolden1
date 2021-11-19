@@ -50,7 +50,7 @@ public class EmployerController {
         else {
 
             model.addAttribute("employers", employerRepository.save(newEmployer));
-             //employerRepository.save(new Employer());
+            //employerRepository.save(new Employer());
         }
 
         return "redirect:";

@@ -1,6 +1,11 @@
 package org.launchcode.techjobs.persistent.controllers;
 
+import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
+import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
+import org.launchcode.techjobs.persistent.models.data.JobRepository;
+import org.launchcode.techjobs.persistent.models.data.SkillRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,23 +20,39 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+    @Autowired
+//this tells Spring to manage the repository and auto populate the employerReository field so we don't set anything here.
+    private EmployerRepository employerRepository;
+
+    @Autowired
+    private SkillRepository skillRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
+
+
+
     @RequestMapping("")
     public String index(Model model) {
 
         model.addAttribute("title", "My Jobs");
+        model.addAttribute("jobs",jobRepository.findAll());
 
         return "index";
     }
 
     @GetMapping("add")
-    public String displayAddJobForm(Model model) {
+    public String displayAddJobForm(Model model ) {
         model.addAttribute("title", "Add Job");
+        model.addAttribute("skills", skillRepository.findAll());
+        model.addAttribute("employers", employerRepository.findAll());
+
         model.addAttribute(new Job());
         return "add";
     }
 
     @PostMapping("add")
-    public String processAddJobForm(@ModelAttribute @Valid Job newJob,
+    public String processAddJobForm(@ModelAttribute @Valid Job newJob, Employer newEmployer,
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
         if (errors.hasErrors()) {
@@ -39,7 +60,12 @@ public class HomeController {
             return "add";
         }
 
-        return "redirect:";
+        //model.addAttribute("employers", employerRepository.save(newEmployer));
+
+        //model.addAttribute("employers", employerRepository.save(newJob.getEmployer()));
+       // model.addAttribute("employers", employerRepository.findById(employerId));
+
+         return "redirect:";
     }
 
     @GetMapping("view/{jobId}")
