@@ -21,6 +21,9 @@ import java.util.List;
 @Controller
 public class HomeController {
 
+
+
+
     @Autowired
 //this tells Spring to manage the repository and auto populate the employerReository field so we don't set anything here.
     private EmployerRepository employerRepository;
@@ -56,16 +59,22 @@ public class HomeController {
     public String processAddJobForm(@ModelAttribute @Valid Job newJob, Employer newEmployer,
                                        Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills) {
 
+
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
             return "add";
         }
 
-        //model.addAttribute("employers", employerRepository.save(newEmployer));
+        else {
 
-        //model.addAttribute("employers", employerRepository.save(newJob.getEmployer()));
-       // model.addAttribute("employers", employerRepository.findById(employerId));
+            List<Skill> skillObjs = (List<Skill>)
+                    skillRepository.findAllById(skills);
 
+            newJob.setSkills(skillObjs);
+
+            model.addAttribute("skills", skillRepository.findAllById(skills));
+          //  model.addAttribute("employers", employerRepository.save(newEmployer));
+        }
          return "redirect:";
     }
 

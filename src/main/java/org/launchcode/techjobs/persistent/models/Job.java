@@ -1,6 +1,8 @@
 package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 //Originally I didn't have Job extending AbstractEntity
@@ -15,7 +17,12 @@ public class Job extends AbstractEntity{
 @ManyToOne //per step 3
     private Employer employer;//per step 2
 
-    private String skills;
+
+
+    //private Skill skill;
+    //private String skills;//only added because of test
+@ManyToMany
+    private  List<Skill>skills = new ArrayList<>();
 
     public Job() {
     }
@@ -23,7 +30,8 @@ public class Job extends AbstractEntity{
     public Job(Employer anEmployer, String someSkills) {
         super();
         this.employer = anEmployer;
-        this.skills = someSkills;
+       //this.skills = someSkills; do I not need this anymore
+
     }
 
     // Getters and setters.
@@ -44,11 +52,15 @@ public class Job extends AbstractEntity{
         this.employer = employer;
     }
 
-    public String getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
-    public void setSkills(String skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+//
+//    public void setSkills(Skill skill) {
+//        this.skill = skill;
+//    }
 }
