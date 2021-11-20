@@ -5,14 +5,14 @@ import javax.persistence.*;
 @Entity
 //Originally I didn't have Job extending AbstractEntity
 public class Job extends AbstractEntity{
-
+//Removed ID and name fields per testTaskThree. We don't need them once e extend the AbstractEntity
 //    @Id
 //    @GeneratedValue
-    //private int id;//removed per update Job Mode but what about the annotations?
+//    private int id;
 
-    //private String name; removed per test 3
+    //private String name;
 
-    @ManyToOne
+@ManyToOne //per step 3
     private Employer employer;//per step 2
 
     private String skills;
@@ -27,11 +27,11 @@ public class Job extends AbstractEntity{
     }
 
     // Getters and setters.
-//removing name variable per update Job model instructions
+
 //    public String getName() {
 //        return name;
 //    }
-
+//
 //    public void setName(String name) {
 //        this.name = name;
 //    }

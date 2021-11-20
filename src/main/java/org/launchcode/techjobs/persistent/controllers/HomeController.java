@@ -2,6 +2,7 @@ package org.launchcode.techjobs.persistent.controllers;
 
 import org.launchcode.techjobs.persistent.models.Employer;
 import org.launchcode.techjobs.persistent.models.Job;
+import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.EmployerRepository;
 import org.launchcode.techjobs.persistent.models.data.JobRepository;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
