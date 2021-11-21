@@ -24,7 +24,8 @@ public class SkillController {
     private SkillRepository skillRepository;
 
 
-    @GetMapping("")
+    //@GetMapping("")
+    @RequestMapping("")
     public String index(Model model) {
 
         model.addAttribute("skills", skillRepository.findAll());//not sure about this
@@ -32,9 +33,10 @@ public class SkillController {
         return "skills/index";
     }
 
+
     @GetMapping("add")
     public String displayAddSkillForm(Model model) {
-        model.addAttribute( new Skill());
+        model.addAttribute("skill", new Skill());
         return "skills/add";
     }
 
@@ -48,11 +50,9 @@ public class SkillController {
             return "skills/add";
         }
         //re-added else
-        else {
-            model.addAttribute("skills", skillRepository.save(newSkill));
-            //skillRepository.save(newSkill); Removed Sunday morning with Angela
 
-        }
+            //model.addAttribute("skills", skillRepository.save(newSkill));
+            skillRepository.save(newSkill); //Removed Sunday morning with Angela
         return "redirect:";
     }
 

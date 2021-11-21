@@ -37,19 +37,18 @@ public class HomeController {
     @RequestMapping("")
     public String index(Model model) {
 
-        model.addAttribute("title", "My Jobs");
-     //   model.addAttribute("jobs", jobRepository.findAll());
+        //model.addAttribute("title", "My Jobs");
+        model.addAttribute("jobs", jobRepository.findAll());
 
         return "index";
     }
 
     @GetMapping("add")
     public String displayAddJobForm(Model model) {
-      //  model.addAttribute("title", "Add Job");
+        model.addAttribute(new Job());
         model.addAttribute("skills", skillRepository.findAll());
         model.addAttribute("employers", employerRepository.findAll());
 
-        model.addAttribute(new Job());
         return "add";
     }
 
@@ -58,15 +57,12 @@ public class HomeController {
                                     Errors errors, Model model, @RequestParam int employerId,
                                     @RequestParam List<Integer> skills) {
 
-        List<Skill> skillObjs = (List<Skill>)
-                skillRepository.findAllById(skills);
-        //skillRepository.save(skillObjs); could this be the issue?
-        newJob.setSkills(skillObjs);
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Job");
+            //model.addAttribute("title", "Add Job");
             return "add";
         }
+
 
 //            Optional<Employer> result = employerRepository.findById(employerId);
 //            Employer employer = result.get();
@@ -75,29 +71,43 @@ public class HomeController {
         newJob.setEmployer(employer);
 
 
+        List<Skill> skillObjs = (List<Skill>)
+                skillRepository.findAllById(skills);
+        //skillRepository.save(skillObjs); could this be the issue?
+        newJob.setSkills(skillObjs);
 //            Optional optEmployer = employerRepository.findById(employerId);
 //            if (optEmployer.isPresent()) {
 //                Employer employer = (Employer) optEmployer.get();
 //                model.addAttribute("employer", employer);
 
-          //  newJob.setEmployer(employer);
-            //List<Employer> emplObjs = (List<Employer>)
-            //employerRepository.findById(employerId)
+        //  newJob.setEmployer(employer);
+        //List<Employer> emplObjs = (List<Employer>)
+        //employerRepository.findById(employerId)
 
 
-            jobRepository.save(newJob);
-            //model.addAttribute("employers", employerRepository.save(newEmployer));
+        jobRepository.save(newJob);
+        //model.addAttribute("employers", employerRepository.save(newEmployer));
 
-            //model.addAttribute("jobs", jobRepository.save(newJob));
+        //model.addAttribute("jobs", jobRepository.save(newJob));
 
-            return "redirect:";
-        }
+        return "redirect:";
+    }
 
 
-        @GetMapping("view/{jobId}")
-        public String displayViewJob (Model model,@PathVariable int jobId){
+    @GetMapping("view/{jobId}")
+    public String displayViewJob(Model model, @PathVariable int jobId) {
+//still need to build this out need to find by job ID
+
+        Optional optJobID = jobRepository.findById(jobId);
+
+        if (optJobID.isPresent()) {
+
+            Job job = (Job) optJobID.get();
+            model.addAttribute("job", job);
 
             return "view";
+        } else {
+            return "redirect:.../";
         }
-
     }
+}
