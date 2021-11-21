@@ -10,11 +10,11 @@ import java.util.List;
 @Entity
 public class Skill extends AbstractEntity {
 
-    @NotBlank
+    //@NotBlank
     @Size(min = 10, max = 100)
     private String description;
 
-    @NotBlank
+    //@NotBlank
     @Size(min = 10, max = 100)
     @ManyToMany (mappedBy = "skills")
    // private String jobs;

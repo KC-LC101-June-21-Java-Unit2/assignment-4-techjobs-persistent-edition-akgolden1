@@ -47,9 +47,9 @@ public class SkillController {
         if (errors.hasErrors()) {
             return "skills/add";
         }
-        else {
-            model.addAttribute("skills",skillRepository.save(newSkill));
-        }
+            //model.addAttribute("skills",skillRepository.save(newSkill));
+        skillRepository.save(newSkill);
+
 
         return "redirect:";
     }

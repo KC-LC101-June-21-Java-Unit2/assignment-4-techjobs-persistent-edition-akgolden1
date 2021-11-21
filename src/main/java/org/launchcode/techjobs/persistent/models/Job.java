@@ -23,14 +23,13 @@ public class Job extends AbstractEntity{
     //private String skills;//only added because of test
 @ManyToMany
     private  List<Skill>skills = new ArrayList<>();
-
     public Job() {
     }
 
-    public Job(Employer anEmployer, String someSkills) {
+    public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
-       //this.skills = someSkills; do I not need this anymore
+        this.skills = someSkills; //do I not need this anymore
 
     }
 
