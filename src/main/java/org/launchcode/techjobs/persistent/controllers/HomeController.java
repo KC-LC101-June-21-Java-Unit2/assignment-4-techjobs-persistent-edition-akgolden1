@@ -55,9 +55,13 @@ public class HomeController {
 
     @PostMapping("add")
     public String processAddJobForm(@ModelAttribute @Valid Job newJob,
-                                    Errors errors, Model model, @RequestParam int employerId, @RequestParam List<Integer> skills
-                                    ) {
+                                    Errors errors, Model model, @RequestParam int employerId,
+                                    @RequestParam List<Integer> skills) {
 
+        List<Skill> skillObjs = (List<Skill>)
+                skillRepository.findAllById(skills);
+        //skillRepository.save(skillObjs); could this be the issue?
+        newJob.setSkills(skillObjs);
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Job");
@@ -78,13 +82,9 @@ public class HomeController {
 
           //  newJob.setEmployer(employer);
             //List<Employer> emplObjs = (List<Employer>)
-            //employerRepository.findById(employerId);
+            //employerRepository.findById(employerId)
 
 
-            List<Skill> skillObjs = (List<Skill>)
-                    skillRepository.findAllById(skills);
-            //skillRepository.save(skillObjs);
-            newJob.setSkills(skillObjs);
             jobRepository.save(newJob);
             //model.addAttribute("employers", employerRepository.save(newEmployer));
 

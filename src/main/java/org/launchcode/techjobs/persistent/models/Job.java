@@ -21,15 +21,18 @@ public class Job extends AbstractEntity{
 
     //private Skill skill;
     //private String skills;//only added because of test
+
 @ManyToMany
-    private  List<Skill>skills = new ArrayList<>();
+    private  List<Skill>skills;
+
+        //= new ArrayList<>();
     public Job() {
     }
 
     public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
-        this.skills = someSkills; //do I not need this anymore
+        this.skills = someSkills;
 
     }
 
@@ -51,9 +54,9 @@ public class Job extends AbstractEntity{
         this.employer = employer;
     }
 
-    public List<Skill> getSkills() {
+    public Iterable <Skill> getSkills() {
         return skills;
-    }
+    } //replaced List with Iterable
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;

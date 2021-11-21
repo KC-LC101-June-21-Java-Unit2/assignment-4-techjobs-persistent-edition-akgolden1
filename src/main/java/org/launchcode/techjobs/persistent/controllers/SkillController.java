@@ -47,15 +47,17 @@ public class SkillController {
         if (errors.hasErrors()) {
             return "skills/add";
         }
-            //model.addAttribute("skills",skillRepository.save(newSkill));
-        skillRepository.save(newSkill);
+        //re-added else
+        else {
+            model.addAttribute("skills", skillRepository.save(newSkill));
+            //skillRepository.save(newSkill); Removed Sunday morning with Angela
 
-
+        }
         return "redirect:";
     }
 
 
-
+//Sunday morning I replaced skillID with skill_ID and it still caused no errors, so it may not be getting here
     @GetMapping("view/{skillId}")//path parameter skillId. This piece of data customizes the response
     public String displayViewSkill(Model model, @PathVariable int skillId) {
 
