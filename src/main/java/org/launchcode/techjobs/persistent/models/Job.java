@@ -1,51 +1,68 @@
 package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Job{
+//Originally I didn't have Job extending AbstractEntity
+public class Job extends AbstractEntity{
+//Removed ID and name fields per testTaskThree. We don't need them once e extend the AbstractEntity
+//    @Id
+//    @GeneratedValue
+//    private int id;
 
-    @Id
-    @GeneratedValue
-    private int id;
+    //private String name;
 
-    private String name;
+@ManyToOne //per step 3
+    private Employer employer;//per step 2
 
-    private String employer;
-    private String skills;
 
+
+    //private Skill skill;
+    //private String skills;//only added because of test
+
+@ManyToMany
+    private  List<Skill>skills;
+
+        //= new ArrayList<>();
     public Job() {
     }
 
-    public Job(String anEmployer, String someSkills) {
+    public Job(Employer anEmployer, List<Skill> someSkills) {
         super();
         this.employer = anEmployer;
         this.skills = someSkills;
+
     }
 
     // Getters and setters.
 
-    public String getName() {
-        return name;
-    }
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public void setName(String name) {
+//        this.name = name;
+//    }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmployer() {
+    public Employer getEmployer() {
         return employer;
     }
 
-    public void setEmployer(String employer) {
+    public void setEmployer(Employer employer) {
         this.employer = employer;
     }
 
-    public String getSkills() {
+    public Iterable <Skill> getSkills() {
         return skills;
-    }
+    } //replaced List with Iterable
 
-    public void setSkills(String skills) {
+    public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+//
+//    public void setSkills(Skill skill) {
+//        this.skill = skill;
+//    }
 }
